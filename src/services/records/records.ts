@@ -17,6 +17,7 @@ import {
 import type { Application } from '../../declarations'
 import { RecordsService, getOptions } from './records.class'
 import { recordsPath, recordsMethods } from './records.shared'
+import { discogsSearch } from './hooks/discogs-search'
 
 export * from './records.class'
 export * from './records.schema'
@@ -35,6 +36,7 @@ export const records = (app: Application) => {
     around: {
       all: [
         // authenticate('jwt'),
+        discogsSearch,
         schemaHooks.resolveExternal(recordsExternalResolver),
         schemaHooks.resolveResult(recordsResolver)
       ]

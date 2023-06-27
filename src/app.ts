@@ -4,6 +4,10 @@ import configuration from '@feathersjs/configuration'
 import { koa, rest, bodyParser, errorHandler, parseAuthentication, cors, serveStatic } from '@feathersjs/koa'
 import socketio from '@feathersjs/socketio'
 
+// dotenv replaces all environmental variables from ~/.env in ~/config/custom-environment-variables.json
+import * as dotenv from 'dotenv'
+dotenv.config()
+
 import { configurationValidator } from './configuration'
 import type { Application } from './declarations'
 import { logError } from './hooks/log-error'
