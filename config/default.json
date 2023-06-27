@@ -25,7 +25,7 @@
       "header": {
         "typ": "access"
       },
-      "audience": "https://yourdomain.com",
+      "audience": "https://groovebase.app",
       "algorithm": "HS256",
       "expiresIn": "1d"
     },
