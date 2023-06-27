@@ -13,6 +13,9 @@ export async function up(knex: Knex): Promise<void> {
     table.string('facebookId')
 
     table.integer('discogsId')
+
+    table.timestamp('createdAt').defaultTo(knex.fn.now())
+    table.timestamp('updatedAt').defaultTo(knex.fn.now())
   })
 }
 
