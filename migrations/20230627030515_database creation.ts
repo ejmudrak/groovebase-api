@@ -5,7 +5,8 @@ export async function up(knex: Knex): Promise<void> {
     table.increments('id')
     table.string('name')
     table.string('year')
-    table.string('imageUrl')
+    table.string('smallImageUrl')
+    table.string('largeImageUrl')
     table.integer('discogsMasterId')
 
     table.timestamp('createdAt').defaultTo(knex.fn.now())

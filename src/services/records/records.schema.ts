@@ -12,7 +12,8 @@ export const recordsSchema = Type.Object(
     id: Type.Number(),
     name: Type.String(),
     year: Type.String(),
-    imageUrl: Type.String(),
+    smallImageUrl: Type.String(),
+    largeImageUrl: Type.String(),
     discogsMasterId: Type.Number(),
     createdAt: Type.String({ format: 'date-time' }),
     updatedAt: Type.String({ format: 'date-time' })
@@ -26,9 +27,13 @@ export const recordsResolver = resolve<Records, HookContext>({})
 export const recordsExternalResolver = resolve<Records, HookContext>({})
 
 // Schema for creating new entries
-export const recordsDataSchema = Type.Pick(recordsSchema, ['name', 'year', 'imageUrl', 'discogsMasterId'], {
-  $id: 'RecordsData'
-})
+export const recordsDataSchema = Type.Pick(
+  recordsSchema,
+  ['name', 'year', 'smallImageUrl', 'largeImageUrl', 'discogsMasterId'],
+  {
+    $id: 'RecordsData'
+  }
+)
 export type RecordsData = Static<typeof recordsDataSchema>
 export const recordsDataValidator = getValidator(recordsDataSchema, dataValidator)
 export const recordsDataResolver = resolve<Records, HookContext>({})
@@ -46,7 +51,8 @@ export const recordsQueryProperties = Type.Pick(recordsSchema, [
   'id',
   'name',
   'year',
-  'imageUrl',
+  'smallImageUrl',
+  'largeImageUrl',
   'discogsMasterId'
 ])
 export const recordsQuerySchema = Type.Intersect(
