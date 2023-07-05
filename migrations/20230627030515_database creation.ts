@@ -4,7 +4,7 @@ export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable('records', (table) => {
     table.increments('id')
     table.string('name')
-    table.string('year')
+    table.integer('year')
     table.string('smallImageUrl')
     table.string('largeImageUrl')
     table.integer('discogsMasterId')

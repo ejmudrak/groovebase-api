@@ -17,7 +17,11 @@ import {
 import type { Application } from '../../declarations'
 import { RecordsService, getOptions } from './records.class'
 import { recordsPath, recordsMethods } from './records.shared'
-import { discogsSearch } from './hooks/discogs-search'
+import { searchDiscogs } from './hooks/discogs-search'
+import { getDiscogsCollection } from './hooks/discogs-get-collection'
+import { importDiscogsCollection } from './hooks/discogs-import-collection'
+import { scoopDataForAfter } from './hooks/scoop-data-for-after'
+import { addArtist } from './hooks/add-artist'
 
 export * from './records.class'
 export * from './records.schema'
@@ -36,21 +40,26 @@ export const records = (app: Application) => {
     around: {
       all: [
         // authenticate('jwt'),
-        discogsSearch,
         schemaHooks.resolveExternal(recordsExternalResolver),
         schemaHooks.resolveResult(recordsResolver)
       ]
     },
     before: {
       all: [schemaHooks.validateQuery(recordsQueryValidator), schemaHooks.resolveQuery(recordsQueryResolver)],
-      find: [],
+      find: [searchDiscogs, getDiscogsCollection],
       get: [],
-      create: [schemaHooks.validateData(recordsDataValidator), schemaHooks.resolveData(recordsDataResolver)],
+      create: [
+        scoopDataForAfter,
+        schemaHooks.validateData(recordsDataValidator),
+        importDiscogsCollection,
+        schemaHooks.resolveData(recordsDataResolver)
+      ],
       patch: [schemaHooks.validateData(recordsPatchValidator), schemaHooks.resolveData(recordsPatchResolver)],
       remove: []
     },
     after: {
-      all: []
+      all: [],
+      create: [addArtist]
     },
     error: {
       all: []

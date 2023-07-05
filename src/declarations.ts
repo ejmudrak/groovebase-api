@@ -27,3 +27,31 @@ declare module '@feathersjs/feathers' {
     user?: User
   }
 }
+
+export type ArtistResult = {
+  id: number
+  name: string
+}
+
+export type DiscogsCollectionResult = {
+  basic_information: {
+    artists: ArtistResult[]
+    cover_image: string
+    genres: string[]
+    master_id: number
+    styles: string[]
+    thumb: string
+    title: string
+    year: string
+  }
+}
+
+export type DiscogsSearchResult = {
+  cover_image: string
+  genre: string[]
+  master_id: number
+  style: string[]
+  thumb: string
+  title: string
+  year: string
+}
