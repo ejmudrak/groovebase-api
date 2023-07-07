@@ -1,0 +1,54 @@
+# https://www.cloudbees.com/blog/using-docker-compose-for-nodejs-development
+---
+services:
+  api-dev:
+    container_name: groovebase_api_dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./:/usr/src/app
+      - node_modules_cache:/usr/src/app/node_modules/
+    ports:
+      - '3030:3030'
+    environment:
+      - host.docker.internal
+    command: 'npm run dev'
+
+  postgres:
+    container_name: groovebase_db
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+    volumes:
+      - ./:/usr/src/app
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "psql -U postgres",
+          "pg_isready",
+          "-d",
+          "postgres",
+          "|| exit 1"
+        ]
+      interval: 2s
+      timeout: 30s
+      retries: 5
+      start_period: 15s
+
+volumes:
+  node_modules_cache:
+  postgres_data:
