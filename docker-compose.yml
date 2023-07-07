@@ -1,7 +1,7 @@
 # https://www.cloudbees.com/blog/using-docker-compose-for-nodejs-development
 ---
 services:
-  api-dev:
+  dev:
     container_name: groovebase_api_dev
     build:
       context: .

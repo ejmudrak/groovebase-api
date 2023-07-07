@@ -1,11 +1,8 @@
 # .PHONY for targets will prevent make from confusing the phony target with a file name
-.PHONY: = dev nuke prune_img prune_sys prune_vols remove_api
-
-build:
-	docker build -t groovebase-api-image .
+.PHONY: = dev nuke prune_img prune_sys prune_vols remove_api stop
 
 dev: ## run dev api & database in docker
-	docker compose up api-dev
+	docker compose up dev
 
 nuke: # wipes out dev environment
 	make stop
@@ -25,3 +22,6 @@ prune_vols: ## run docker prune for volumes not in use by a container
 
 remove_api: ## delete docker API image, by reference & formatting to pass ID into rmi cmd
 	@docker rmi --force $$(docker images --filter=reference="groovebase-api-dev" --format="{{.ID}}")
+
+stop:
+	docker compose down

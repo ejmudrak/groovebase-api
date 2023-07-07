@@ -11,7 +11,7 @@
   },
   "postgresql": {
     "client": "pg",
-    "connection": "postgres://postgres:password@localhost:5432/postgres"
+    "connection": "postgres://postgres:password@postgres:5432/postgres"
   },
   "authentication": {
     "entity": "user",
