@@ -9,6 +9,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string('password')
 
     table.string('googleId')
+    table.string('profilePicture')
 
     table.string('facebookId')
 

@@ -4,6 +4,7 @@ import { LocalStrategy } from '@feathersjs/authentication-local'
 import { oauth, OAuthStrategy } from '@feathersjs/authentication-oauth'
 
 import type { Application } from './declarations'
+import GoogleStrategy from './google-strategy'
 
 declare module './declarations' {
   interface ServiceTypes {
@@ -16,7 +17,7 @@ export const authentication = (app: Application) => {
 
   authentication.register('jwt', new JWTStrategy())
   authentication.register('local', new LocalStrategy())
-  authentication.register('google', new OAuthStrategy())
+  authentication.register('google', new GoogleStrategy())
   authentication.register('facebook', new OAuthStrategy())
 
   app.use('authentication', authentication)

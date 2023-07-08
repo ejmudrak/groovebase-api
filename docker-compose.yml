@@ -29,6 +29,7 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
+      - POSTGRES_PORT=5432
     volumes:
       - ./:/usr/src/app
       - postgres_data:/var/lib/postgresql/data

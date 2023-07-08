@@ -19,7 +19,8 @@
     "secret": "RmzOZtzFBwjvpO/e786FAzKN4C3q+lIt",
     "authStrategies": [
       "jwt",
-      "local"
+      "local",
+      "google"
     ],
     "jwtOptions": {
       "header": {
@@ -35,8 +36,10 @@
     },
     "oauth": {
       "google": {
-        "key": "<Client ID>",
-        "secret": "<Client secret>"
+        "key": "472031918708-c4hglbnrskk0a3l9heabe1pmsv41gp1h.apps.googleusercontent.com",
+        "secret": "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",
+        "scope": ["openid", "profile", "email"],
+        "nonce": true
       },
       "facebook": {
         "key": "<Client ID>",

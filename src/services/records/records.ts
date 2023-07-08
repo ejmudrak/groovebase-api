@@ -39,7 +39,7 @@ export const records = (app: Application) => {
   app.service(recordsPath).hooks({
     around: {
       all: [
-        // authenticate('jwt'),
+        authenticate('jwt'),
         schemaHooks.resolveExternal(recordsExternalResolver),
         schemaHooks.resolveResult(recordsResolver)
       ]
