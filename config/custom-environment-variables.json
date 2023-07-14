@@ -6,5 +6,8 @@
         "secret": "GOOGLE_CLIENT_SECRET"
       }
     }
+  },
+  "postgresql": {
+    "connection": "DATABASE_URL"
   }
 }

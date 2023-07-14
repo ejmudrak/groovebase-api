@@ -4,6 +4,9 @@
 dev: ## run dev api & database in docker
 	docker compose up dev
 
+migrate: 
+	DATABASE_URL=postgres://postgres:password@localhost:5432/postgres npm run migrate
+
 nuke: # wipes out dev environment
 	make stop
 	make remove_api
