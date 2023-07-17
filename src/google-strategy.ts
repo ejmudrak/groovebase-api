@@ -1,10 +1,17 @@
 import { AuthenticationRequest } from '@feathersjs/authentication'
 import { OAuthStrategy, OAuthProfile } from '@feathersjs/authentication-oauth'
-import { Params, Query } from '@feathersjs/feathers'
+import { Params } from '@feathersjs/feathers'
 import axios from 'axios'
 
 export default class GoogleStrategy extends OAuthStrategy {
-  async getProfile(authResult: AuthenticationRequest, _params: Params) {
+  /**
+   * Reach out to Google to get profile data for this entity.
+   * Feathers should handle this for us, but it appears to be returning undefined profile data
+   *
+   * @param authResult the result of Google's auth request, containing an access token
+   * @returns The Google OAuth profile
+   */
+  async getProfile(authResult: AuthenticationRequest) {
     // This is the OAuth access token that can be used
     // for Google API requests as the Bearer token
     const accessToken = authResult.accessToken
