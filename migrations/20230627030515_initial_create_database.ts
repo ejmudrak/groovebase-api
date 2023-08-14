@@ -133,9 +133,6 @@ export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable('user_records', (table) => {
     table.increments('id')
 
-    table.integer('sellerId').nullable()
-    table.foreign('sellerId').references('id').inTable('sellers')
-
     table.integer('recordId')
     table.foreign('recordId').references('id').inTable('records')
 
@@ -143,6 +140,15 @@ export async function up(knex: Knex): Promise<void> {
     table.foreign('userId').references('id').inTable('users')
 
     table.unique(['recordId', 'userId'])
+
+    table.string('action');
+    table.string('notes');
+    table.string('mediaCondition');
+    table.string('sleeveCondition');
+    table.string('color');
+    table.decimal('price');
+    table.integer('sellerId').nullable()
+    table.foreign('sellerId').references('id').inTable('sellers')
 
     table.timestamp('createdAt').defaultTo(knex.fn.now())
     table.timestamp('updatedAt').defaultTo(knex.fn.now())

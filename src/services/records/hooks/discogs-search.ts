@@ -1,4 +1,8 @@
-import type { DiscogsSearchResult, HookContext, NextFunction } from '../../../declarations'
+/* discogs-search.ts
+  Fetches record data from Discogs, for the purpose of adding a record to a collection
+*/
+
+import type { DiscogsSearchResult, HookContext } from '../../../declarations'
 import axios from 'axios'
 
 export const searchDiscogs = async (context: HookContext) => {
@@ -17,7 +21,7 @@ export const searchDiscogs = async (context: HookContext) => {
 
     const results: DiscogsSearchResult[] = response.data.results
 
-    const result = results.map(
+    const data = results.map(
       ({ title, year, thumb, cover_image: coverImage, master_id: masterId, genre, style }) => {
         const [artist, album] = title.split(' - ')
 
@@ -33,6 +37,12 @@ export const searchDiscogs = async (context: HookContext) => {
       }
     )
 
-    context.result = result
+    context.result = {
+      data,
+      total: data.length,
+      limit: data.length,
+      skip: 0
+    }
   }
+  return context
 }

@@ -30,4 +30,6 @@ export const getDiscogsCollection = async (context: HookContext) => {
     /* Format the records for adding to the database */
     context.result = formatDiscogsRecord(response.data.releases)
   }
+
+  return context
 }

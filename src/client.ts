@@ -7,6 +7,9 @@ import type { AuthenticationClientOptions } from '@feathersjs/authentication-cli
 import { recordsClient } from './services/records/records.shared'
 export type { Records, RecordsData, RecordsQuery, RecordsPatch } from './services/records/records.shared'
 
+import { userRecordsClient } from './services/user-records/user-records.shared'
+export type { UserRecords, UserRecordsData, UserRecordsQuery, UserRecordsPatch } from './services/user-records/user-records.shared'
+
 import { userClient } from './services/users/users.shared'
 export type { User, UserData, UserQuery, UserPatch } from './services/users/users.shared'
 
@@ -38,5 +41,6 @@ export const createClient = <Configuration = any>(
 
   client.configure(userClient)
   client.configure(recordsClient)
+  client.configure(userRecordsClient)
   return client
 }
