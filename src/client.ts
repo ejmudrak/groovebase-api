@@ -4,11 +4,27 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { recordBinsClient } from './services/record-bins/record-bins.shared'
+export type {
+  RecordBins,
+  RecordBinsData,
+  RecordBinsQuery,
+  RecordBinsPatch
+} from './services/record-bins/record-bins.shared'
+
+import { binsClient } from './services/bins/bins.shared'
+export type { Bins, BinsData, BinsQuery, BinsPatch } from './services/bins/bins.shared'
+
 import { recordsClient } from './services/records/records.shared'
 export type { Records, RecordsData, RecordsQuery, RecordsPatch } from './services/records/records.shared'
 
 import { userRecordsClient } from './services/user-records/user-records.shared'
-export type { UserRecords, UserRecordsData, UserRecordsQuery, UserRecordsPatch } from './services/user-records/user-records.shared'
+export type {
+  UserRecords,
+  UserRecordsData,
+  UserRecordsQuery,
+  UserRecordsPatch
+} from './services/user-records/user-records.shared'
 
 import { userClient } from './services/users/users.shared'
 export type { User, UserData, UserQuery, UserPatch } from './services/users/users.shared'
@@ -42,5 +58,7 @@ export const createClient = <Configuration = any>(
   client.configure(userClient)
   client.configure(recordsClient)
   client.configure(userRecordsClient)
+  client.configure(binsClient)
+  client.configure(recordBinsClient)
   return client
 }

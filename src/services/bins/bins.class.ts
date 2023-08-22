@@ -4,24 +4,24 @@ import { KnexService } from '@feathersjs/knex'
 import type { KnexAdapterParams, KnexAdapterOptions } from '@feathersjs/knex'
 
 import type { Application } from '../../declarations'
-import type { UserRecords, UserRecordsData, UserRecordsPatch, UserRecordsQuery } from './user-records.schema'
+import type { Bins, BinsData, BinsPatch, BinsQuery } from './bins.schema'
 
-export type { UserRecords, UserRecordsData, UserRecordsPatch, UserRecordsQuery }
+export type { Bins, BinsData, BinsPatch, BinsQuery }
 
-export interface UserRecordsParams extends KnexAdapterParams<UserRecordsQuery> {}
+export interface BinsParams extends KnexAdapterParams<BinsQuery> {}
 
 // By default calls the standard Knex adapter service methods but can be customized with your own functionality.
-export class UserRecordsService<ServiceParams extends Params = UserRecordsParams> extends KnexService<
-  UserRecords,
-  UserRecordsData,
-  UserRecordsParams,
-  UserRecordsPatch
+export class BinsService<ServiceParams extends Params = BinsParams> extends KnexService<
+  Bins,
+  BinsData,
+  BinsParams,
+  BinsPatch
 > {}
 
 export const getOptions = (app: Application): KnexAdapterOptions => {
   return {
     paginate: app.get('paginate'),
     Model: app.get('postgresqlClient'),
-    name: 'user_records'
+    name: 'bins'
   }
 }

@@ -4,9 +4,12 @@
 dev: ## run dev api & database in docker
 	docker compose up dev
 
-migrate: 
+migrate_dev: 
 	DATABASE_URL=postgres://postgres:password@localhost:5432/postgres npm run migrate
 
+seed_dev: ## run seeder for dev environment
+	DATABASE_URL=postgres://postgres:password@localhost:5432/postgres knex seed:run
+	
 nuke: # wipes out dev environment
 	make stop
 	make remove_api
@@ -25,6 +28,10 @@ prune_vols: ## run docker prune for volumes not in use by a container
 
 remove_api: ## delete docker API image, by reference & formatting to pass ID into rmi cmd
 	@docker rmi --force $$(docker images --filter=reference="groovebase-api-dev" --format="{{.ID}}")
+
+setup_local_db: ## run migrations and seeds for local database
+	make migrate_dev
+	make seed_dev
 
 stop:
 	docker compose down

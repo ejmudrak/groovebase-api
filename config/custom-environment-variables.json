@@ -8,6 +8,9 @@
     }
   },
   "postgresql": {
-    "connection": "DATABASE_URL"
+    "connection": "DATABASE_URL",
+    "seeds": {
+      "directory": "./seeds"
+    }
   }
 }
