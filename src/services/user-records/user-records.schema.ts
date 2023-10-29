@@ -54,7 +54,7 @@ export const userRecordsExternalResolver = resolve<UserRecords, HookContext>({
 // Schema for creating new entries
 export const userRecordsDataSchema = Type.Pick(
   userRecordsSchema,
-  ['recordId', 'userId', 'action', 'notes', 'mediaCondition', 'sleeveCondition', 'color', 'price', 'sellerId'],
+  ['recordId', 'userId', 'action', 'notes', 'mediaCondition', 'color', 'price'],
   {
     $id: 'UserRecordsData'
   }
@@ -83,7 +83,20 @@ export const userRecordsPatchResolver = resolve<UserRecords, HookContext>({
 
 // Schema for allowed query properties
 export const userRecordsQueryProperties = Type.Intersect([
-  Type.Pick(userRecordsSchema, ['id', 'recordId', 'userId', 'action', 'notes', 'mediaCondition', 'sleeveCondition', 'color', 'price', 'sellerId', 'createdAt', 'updatedAt']),
+  Type.Pick(userRecordsSchema, [
+    'id',
+    'recordId',
+    'userId',
+    'action',
+    'notes',
+    'mediaCondition',
+    'sleeveCondition',
+    'color',
+    'price',
+    'sellerId',
+    'createdAt',
+    'updatedAt'
+  ]),
   Type.Object({
     username: Type.String()
   })
