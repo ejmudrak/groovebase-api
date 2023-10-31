@@ -28,11 +28,11 @@ export const userRecordsSchema = Type.Object(
   },
   { $id: 'UserRecords', additionalProperties: false }
 )
-export type UserRecords = Static<typeof userRecordsSchema>
+export type UserRecord = Static<typeof userRecordsSchema>
 export const userRecordsValidator = getValidator(userRecordsSchema, dataValidator)
-export const userRecordsResolver = resolve<UserRecords, HookContext>({})
+export const userRecordsResolver = resolve<UserRecord, HookContext>({})
 
-export const userRecordsExternalResolver = resolve<UserRecords, HookContext>({
+export const userRecordsExternalResolver = resolve<UserRecord, HookContext>({
   record: async (value, userRecord, context) => {
     if (!userRecord?.record) {
       return {
@@ -61,7 +61,7 @@ export const userRecordsDataSchema = Type.Pick(
 )
 export type UserRecordsData = Static<typeof userRecordsDataSchema>
 export const userRecordsDataValidator = getValidator(userRecordsDataSchema, dataValidator)
-export const userRecordsDataResolver = resolve<UserRecords, HookContext>({
+export const userRecordsDataResolver = resolve<UserRecord, HookContext>({
   createdAt: async () => {
     // Return the current date
     return new Date().toISOString()
@@ -74,7 +74,7 @@ export const userRecordsPatchSchema = Type.Partial(userRecordsSchema, {
 })
 export type UserRecordsPatch = Static<typeof userRecordsPatchSchema>
 export const userRecordsPatchValidator = getValidator(userRecordsPatchSchema, dataValidator)
-export const userRecordsPatchResolver = resolve<UserRecords, HookContext>({
+export const userRecordsPatchResolver = resolve<UserRecord, HookContext>({
   updatedAt: async () => {
     // Return the current date
     return new Date().toISOString()

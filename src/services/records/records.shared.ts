@@ -1,9 +1,9 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/service.shared.html
 import type { Params } from '@feathersjs/feathers'
 import type { ClientApplication } from '../../client'
-import type { Records, RecordsData, RecordsPatch, RecordsQuery, RecordsService } from './records.class'
+import type { Record, RecordsData, RecordsPatch, RecordsQuery, RecordsService } from './records.class'
 
-export type { Records, RecordsData, RecordsPatch, RecordsQuery }
+export type { Record, RecordsData, RecordsPatch, RecordsQuery }
 
 export type RecordsClientService = Pick<RecordsService<Params<RecordsQuery>>, (typeof recordsMethods)[number]>
 

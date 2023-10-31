@@ -4,15 +4,15 @@ import { KnexService } from '@feathersjs/knex'
 import type { KnexAdapterParams, KnexAdapterOptions } from '@feathersjs/knex'
 
 import type { Application } from '../../declarations'
-import type { UserRecords, UserRecordsData, UserRecordsPatch, UserRecordsQuery } from './user-records.schema'
+import type { UserRecord, UserRecordsData, UserRecordsPatch, UserRecordsQuery } from './user-records.schema'
 
-export type { UserRecords, UserRecordsData, UserRecordsPatch, UserRecordsQuery }
+export type { UserRecord, UserRecordsData, UserRecordsPatch, UserRecordsQuery }
 
 export interface UserRecordsParams extends KnexAdapterParams<UserRecordsQuery> {}
 
 // By default calls the standard Knex adapter service methods but can be customized with your own functionality.
 export class UserRecordsService<ServiceParams extends Params = UserRecordsParams> extends KnexService<
-  UserRecords,
+  UserRecord,
   UserRecordsData,
   UserRecordsParams,
   UserRecordsPatch

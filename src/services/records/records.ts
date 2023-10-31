@@ -22,6 +22,7 @@ import { getDiscogsCollection } from './hooks/discogs-get-collection'
 import { importDiscogsCollection } from './hooks/discogs-import-collection'
 import { scoopDataForAfter } from './hooks/scoop-data-for-after'
 import { addArtist } from './hooks/add-artist'
+import { filterRecordsByUserId } from './hooks/filter-records-by-user-id'
 
 export * from './records.class'
 export * from './records.schema'
@@ -46,7 +47,7 @@ export const records = (app: Application) => {
     },
     before: {
       all: [schemaHooks.validateQuery(recordsQueryValidator), schemaHooks.resolveQuery(recordsQueryResolver)],
-      find: [searchDiscogs, getDiscogsCollection],
+      find: [searchDiscogs, getDiscogsCollection, filterRecordsByUserId],
       get: [],
       create: [
         scoopDataForAfter,

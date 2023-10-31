@@ -2,14 +2,14 @@
 import type { Params } from '@feathersjs/feathers'
 import type { ClientApplication } from '../../client'
 import type {
-  UserRecords,
+  UserRecord,
   UserRecordsData,
   UserRecordsPatch,
   UserRecordsQuery,
   UserRecordsService
 } from './user-records.class'
 
-export type { UserRecords, UserRecordsData, UserRecordsPatch, UserRecordsQuery }
+export type { UserRecord, UserRecordsData, UserRecordsPatch, UserRecordsQuery }
 
 export type UserRecordsClientService = Pick<
   UserRecordsService<Params<UserRecordsQuery>>,

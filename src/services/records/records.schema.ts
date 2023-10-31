@@ -22,11 +22,11 @@ export const recordsSchema = Type.Object(
   },
   { $id: 'Records', additionalProperties: false }
 )
-export type Records = Static<typeof recordsSchema>
+export type Record = Static<typeof recordsSchema>
 export const recordsValidator = getValidator(recordsSchema, dataValidator)
-export const recordsResolver = resolve<Records, HookContext>({})
+export const recordsResolver = resolve<Record, HookContext>({})
 
-export const recordsExternalResolver = resolve<Records, HookContext>({
+export const recordsExternalResolver = resolve<Record, HookContext>({
   artist: async (value, record, context) => {
     if (!record?.artist) {
       return {
@@ -55,7 +55,7 @@ export const recordsDataSchema = Type.Pick(
 )
 export type RecordsData = Static<typeof recordsDataSchema>
 export const recordsDataValidator = getValidator(recordsDataSchema, dataValidator)
-export const recordsDataResolver = resolve<Records, HookContext>({
+export const recordsDataResolver = resolve<Record, HookContext>({
   createdAt: async () => {
     // Return the current date
     return new Date().toISOString()
@@ -68,7 +68,7 @@ export const recordsPatchSchema = Type.Partial(recordsSchema, {
 })
 export type RecordsPatch = Static<typeof recordsPatchSchema>
 export const recordsPatchValidator = getValidator(recordsPatchSchema, dataValidator)
-export const recordsPatchResolver = resolve<Records, HookContext>({
+export const recordsPatchResolver = resolve<Record, HookContext>({
   updatedAt: async () => {
     // Return the current date
     return new Date().toISOString()
@@ -79,7 +79,8 @@ export const recordsPatchResolver = resolve<Records, HookContext>({
 export const recordsQueryProperties = Type.Intersect([
   Type.Pick(recordsSchema, ['id', 'name', 'year', 'discogsMasterId', 'createdAt', 'updatedAt']),
   Type.Object({
-    username: Type.String()
+    username: Type.String(),
+    userId: Type.Integer()
   })
 ])
 export const recordsQuerySchema = Type.Intersect(
