@@ -1,0 +1,16 @@
+{
+  "authentication": {
+    "oauth": {
+      "google": {
+        "key": "GOOGLE_CLIENT_ID",
+        "secret": "GOOGLE_CLIENT_SECRET"
+      }
+    }
+  },
+  "postgresql": {
+    "connection": "DATABASE_URL",
+    "seeds": {
+      "directory": "./seeds"
+    }
+  }
+}

@@ -20,6 +20,25 @@ services:
       - host.docker.internal
     command: 'npm run dev'
 
+  api-local-prod:
+    container_name: groovebase_api_local_prod
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: prod
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./:/app
+      - node_modules_cache:/app/node_modules/
+    ports:
+      - '3030:3030'
+    environment:
+      - host.docker.internal
+    command: 'npm run prod'
+
   postgres:
     container_name: groovebase_db
     image: postgres:latest

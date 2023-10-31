@@ -1,3 +1,6 @@
+# imports env vars
+include .env
+
 # .PHONY for targets will prevent make from confusing the phony target with a file name
 .PHONY: = dev nuke prune_img prune_sys prune_vols remove_api stop
 
@@ -5,10 +8,10 @@ dev: ## run dev api & database in docker
 	docker compose up dev
 
 migrate_dev: 
-	DATABASE_URL=postgres://postgres:password@localhost:5432/postgres npm run migrate
+	DATABASE_URL=${DATABASE_URL} npm run migrate
 
-seed_dev: ## run seeder for dev environment
-	DATABASE_URL=postgres://postgres:password@localhost:5432/postgres knex seed:run
+migrate_prod: 
+	DATABASE_URL=${DATABASE_URL} npm run migrate
 	
 nuke: # wipes out dev environment
 	make stop
@@ -16,6 +19,9 @@ nuke: # wipes out dev environment
 	make prune_sys
 	make prune_vols
 	make dev
+
+prod: ## run local production api & database in docker
+	docker compose up api-local-prod
 
 prune_img: ## run docker prune on all stopped/not in use images
 	docker image prune
@@ -29,9 +35,19 @@ prune_vols: ## run docker prune for volumes not in use by a container
 remove_api: ## delete docker API image, by reference & formatting to pass ID into rmi cmd
 	@docker rmi --force $$(docker images --filter=reference="groovebase-api-dev" --format="{{.ID}}")
 
+seed_dev: ## run seeder for dev environment
+	DATABASE_URL=${DATABASE_URL} knex seed:run
+
+seed_prod: ## run seeder for dev environment
+	DATABASE_URL=${DATABASE_URL} knex seed:run
+
 setup_local_db: ## run migrations and seeds for local database
 	make migrate_dev
 	make seed_dev
+
+setup_prod_db: ## run migrations and seeds for prod database
+	make migrate_prod
+	make seed_prod
 
 stop:
 	docker compose down

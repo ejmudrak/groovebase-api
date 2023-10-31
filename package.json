@@ -36,6 +36,7 @@
   "main": "lib/client",
   "scripts": {
     "dev": "nodemon -x ts-node src/index.ts",
+    "prod": "nodemon -x ts-node src/index.ts",
     "compile": "shx rm -rf lib/ && tsc",
     "start": "node lib/",
     "prettier": "npx prettier \"**/*.ts\" --write",

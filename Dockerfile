@@ -20,3 +20,13 @@ EXPOSE 3030
 ENV NODE_ENV=development
 
 CMD ["npm", "run", "dev"]
+
+
+FROM node:lts-alpine AS prod
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3030
+ENV NODE_ENV=production
+CMD ["npm", "run", "dev"]
