@@ -31,7 +31,7 @@ export const searchDiscogs = async (context: HookContext) => {
           smallImageUrl: thumb,
           largeImageUrl: coverImage,
           discogsMasterId: masterId,
-          artist: { name: artist },
+          artist,
           genres: [...genre, ...style]
         }
       }

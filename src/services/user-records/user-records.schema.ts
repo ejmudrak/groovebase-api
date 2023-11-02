@@ -18,7 +18,7 @@ export const userRecordsSchema = Type.Object(
     mediaCondition: Type.String(),
     sleeveCondition: Type.String(),
     color: Type.String(),
-    price: Type.Number(),
+    price: Type.Optional(Type.Number()),
     sellerId: Type.Number(),
 
     record: Type.Any(),

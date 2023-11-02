@@ -5,33 +5,10 @@ export async function up(knex: Knex): Promise<void> {
     table.increments('id')
     table.string('name')
     table.integer('year')
+    table.string('artist')
     table.string('smallImageUrl')
     table.string('largeImageUrl')
     table.integer('discogsMasterId')
-
-    table.timestamp('createdAt').defaultTo(knex.fn.now())
-    table.timestamp('updatedAt').defaultTo(knex.fn.now())
-  })
-
-  await knex.schema.createTable('artists', (table) => {
-    table.increments('id')
-    table.string('name')
-    table.integer('discogsArtistId')
-
-    table.timestamp('createdAt').defaultTo(knex.fn.now())
-    table.timestamp('updatedAt').defaultTo(knex.fn.now())
-  })
-
-  await knex.schema.createTable('artist_records', (table) => {
-    table.increments('id')
-
-    table.integer('artistId')
-    table.foreign('artistId').references('id').inTable('artists')
-
-    table.integer('recordId')
-    table.foreign('recordId').references('id').inTable('records')
-
-    table.unique(['artistId', 'recordId'])
 
     table.timestamp('createdAt').defaultTo(knex.fn.now())
     table.timestamp('updatedAt').defaultTo(knex.fn.now())
@@ -81,10 +58,9 @@ export async function up(knex: Knex): Promise<void> {
     table.integer('trackId')
     table.foreign('trackId').references('id').inTable('tracks')
 
-    table.integer('artistId')
-    table.foreign('artistId').references('id').inTable('artists')
+    table.string('artist')
 
-    table.unique(['trackId', 'artistId'])
+    table.unique(['trackId', 'artist'])
 
     table.timestamp('createdAt').defaultTo(knex.fn.now())
     table.timestamp('updatedAt').defaultTo(knex.fn.now())
@@ -141,12 +117,12 @@ export async function up(knex: Knex): Promise<void> {
 
     table.unique(['recordId', 'userId'])
 
-    table.string('action');
-    table.string('notes');
-    table.string('mediaCondition');
-    table.string('sleeveCondition');
-    table.string('color');
-    table.decimal('price');
+    table.string('action').nullable()
+    table.string('notes').nullable()
+    table.string('mediaCondition')
+    table.string('sleeveCondition').nullable()
+    table.string('color').nullable()
+    table.decimal('price').nullable()
     table.integer('sellerId').nullable()
     table.foreign('sellerId').references('id').inTable('sellers')
 

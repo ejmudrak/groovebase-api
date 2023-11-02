@@ -12,10 +12,10 @@ export const recordsSchema = Type.Object(
     id: Type.Number(),
     name: Type.String(),
     year: Type.Number(),
+    artist: Type.String(),
     smallImageUrl: Type.String(),
     largeImageUrl: Type.String(),
     discogsMasterId: Type.Number(),
-    artist: Type.Any(),
     genres: Type.Array(Type.String()),
     createdAt: Type.String({ format: 'date-time' }),
     updatedAt: Type.String({ format: 'date-time' })
@@ -27,15 +27,6 @@ export const recordsValidator = getValidator(recordsSchema, dataValidator)
 export const recordsResolver = resolve<Record, HookContext>({})
 
 export const recordsExternalResolver = resolve<Record, HookContext>({
-  artist: async (value, record, context) => {
-    if (!record?.artist) {
-      return {
-        name: ''
-      }
-    }
-
-    return record.artist
-  },
   genres: async (value, record, context) => {
     if (!record?.genres) {
       return []
@@ -48,7 +39,7 @@ export const recordsExternalResolver = resolve<Record, HookContext>({
 // Schema for creating new entries
 export const recordsDataSchema = Type.Pick(
   recordsSchema,
-  ['name', 'year', 'smallImageUrl', 'largeImageUrl', 'discogsMasterId'],
+  ['name', 'year', 'artist', 'smallImageUrl', 'largeImageUrl', 'discogsMasterId'],
   {
     $id: 'RecordsData'
   }

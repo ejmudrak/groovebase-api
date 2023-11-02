@@ -21,7 +21,6 @@ import { searchDiscogs } from './hooks/discogs-search'
 import { getDiscogsCollection } from './hooks/discogs-get-collection'
 import { importDiscogsCollection } from './hooks/discogs-import-collection'
 import { scoopDataForAfter } from './hooks/scoop-data-for-after'
-import { addArtist } from './hooks/add-artist'
 import { filterRecordsByUserId } from './hooks/filter-records-by-user-id'
 
 export * from './records.class'
@@ -60,7 +59,7 @@ export const records = (app: Application) => {
     },
     after: {
       all: [],
-      create: [addArtist]
+      create: []
     },
     error: {
       all: []

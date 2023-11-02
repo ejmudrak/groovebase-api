@@ -4,6 +4,9 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { artistsClient } from './services/artists/artists.shared'
+export type { Artists, ArtistsData, ArtistsQuery, ArtistsPatch } from './services/artists/artists.shared'
+
 import { recordBinsClient } from './services/record-bins/record-bins.shared'
 export type {
   RecordBins,
@@ -60,5 +63,6 @@ export const createClient = <Configuration = any>(
   client.configure(userRecordsClient)
   client.configure(binsClient)
   client.configure(recordBinsClient)
+  client.configure(artistsClient)
   return client
 }
