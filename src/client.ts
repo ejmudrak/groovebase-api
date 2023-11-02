@@ -4,6 +4,25 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { recordGenreClient } from './services/record-genre/record-genre.shared'
+export type {
+  RecordGenre,
+  RecordGenreData,
+  RecordGenreQuery,
+  RecordGenrePatch
+} from './services/record-genre/record-genre.shared'
+
+import { recordGenresClient } from './services/record-genres/record-genres.shared'
+export type {
+  RecordGenres,
+  RecordGenresData,
+  RecordGenresQuery,
+  RecordGenresPatch
+} from './services/record-genres/record-genres.shared'
+
+import { genresClient } from './services/genres/genres.shared'
+export type { Genres, GenresData, GenresQuery, GenresPatch } from './services/genres/genres.shared'
+
 import { artistsClient } from './services/artists/artists.shared'
 export type { Artists, ArtistsData, ArtistsQuery, ArtistsPatch } from './services/artists/artists.shared'
 
@@ -64,5 +83,8 @@ export const createClient = <Configuration = any>(
   client.configure(binsClient)
   client.configure(recordBinsClient)
   client.configure(artistsClient)
+  client.configure(genresClient)
+  client.configure(recordGenresClient)
+  client.configure(recordGenreClient)
   return client
 }

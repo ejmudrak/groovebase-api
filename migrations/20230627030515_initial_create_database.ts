@@ -16,7 +16,7 @@ export async function up(knex: Knex): Promise<void> {
 
   await knex.schema.createTable('genres', (table) => {
     table.increments('id')
-    table.string('name')
+    table.string('name').unique()
 
     table.timestamp('createdAt').defaultTo(knex.fn.now())
     table.timestamp('updatedAt').defaultTo(knex.fn.now())

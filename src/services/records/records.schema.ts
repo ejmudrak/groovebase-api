@@ -28,11 +28,17 @@ export const recordsResolver = resolve<Record, HookContext>({})
 
 export const recordsExternalResolver = resolve<Record, HookContext>({
   genres: async (value, record, context) => {
-    if (!record?.genres) {
-      return []
+    // handles populating genres for records that exist in the db
+    if (record.id) {
+      const genres = await context.app
+        .service('genres')
+        .find({ query: { $select: ['name'], recordId: record.id } })
+
+      return genres.data.map((genre) => genre.name)
     }
 
-    return record.genres
+    // discogs search results will already have genres
+    return record.genres || []
   }
 })
 

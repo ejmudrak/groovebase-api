@@ -22,6 +22,8 @@ import { getDiscogsCollection } from './hooks/discogs-get-collection'
 import { importDiscogsCollection } from './hooks/discogs-import-collection'
 import { scoopDataForAfter } from './hooks/scoop-data-for-after'
 import { filterRecordsByUserId } from './hooks/filter-records-by-user-id'
+import { addGenres } from './hooks/add-genres'
+import { ignoreExisting } from './hooks/ignore-existing'
 
 export * from './records.class'
 export * from './records.schema'
@@ -51,6 +53,7 @@ export const records = (app: Application) => {
       create: [
         scoopDataForAfter,
         schemaHooks.validateData(recordsDataValidator),
+        ignoreExisting,
         importDiscogsCollection,
         schemaHooks.resolveData(recordsDataResolver)
       ],
@@ -59,7 +62,7 @@ export const records = (app: Application) => {
     },
     after: {
       all: [],
-      create: []
+      create: [addGenres]
     },
     error: {
       all: []
