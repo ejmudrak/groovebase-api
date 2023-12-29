@@ -7,6 +7,18 @@ include .env
 dev: ## run dev api & database in docker
 	docker compose up dev
 
+space := $(subst ,, )
+
+ifeq (make_migration,$(firstword $(MAKECMDGOALS)))
+  	MIGRATE_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+  	$(eval $(MIGRATE_ARGS):;@:)
+endif
+
+NAME := $(subst $(space),_,$(MIGRATE_ARGS))
+
+new_migration: ## runs knex migrations:make command; pass migration name after make command
+	npm run migrate:make $(NAME)
+
 migrate_dev: 
 	DATABASE_URL=${DATABASE_URL} npm run migrate
 
