@@ -14,6 +14,7 @@ export const binsSchema = Type.Object(
     order: Type.Integer(),
     featuredRecordId: Type.Integer(),
     userId: Type.Integer(),
+    isDefault: Type.Boolean(),
     createdAt: Type.String({ format: 'date-time' }),
     updatedAt: Type.String({ format: 'date-time' })
   },
@@ -42,7 +43,14 @@ export const binsPatchValidator = getValidator(binsPatchSchema, dataValidator)
 export const binsPatchResolver = resolve<Bins, HookContext>({})
 
 // Schema for allowed query properties
-export const binsQueryProperties = Type.Pick(binsSchema, ['id', 'name', 'userId', 'updatedAt', 'createdAt'])
+export const binsQueryProperties = Type.Pick(binsSchema, [
+  'id',
+  'name',
+  'userId',
+  'isDefault',
+  'updatedAt',
+  'createdAt'
+])
 export const binsQuerySchema = Type.Intersect(
   [
     querySyntax(binsQueryProperties),
