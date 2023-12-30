@@ -30,14 +30,16 @@ export const binsResolver = resolve<Bin, HookContext>({})
 
 export const binsExternalResolver = resolve<Bin, HookContext>({
   numRecords: async (_, bin, context) => {
-    const recordsInBin = await context.app.service('record-bins').find({ query: { $limit: 1 } })
+    const recordsInBin = await context.app
+      .service('record-bins')
+      .find({ query: { $limit: 1, binId: bin.id } })
 
     return recordsInBin.total
   },
   recentlyAddedRecords: async (_, bin, context) => {
     const recordsInBin = await context.app
       .service('records')
-      .find({ query: { binId: bin.id, $limit: 4, $sort: { createdAt: -1 } }, paginate: false })
+      .find({ query: { binId: bin.id, $limit: 5, $sort: { createdAt: -1 } }, paginate: false })
 
     return recordsInBin
   },

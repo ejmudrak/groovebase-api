@@ -23,6 +23,7 @@ export const userRecordsSchema = Type.Object(
 
     record: Type.Any(),
     user: Type.Any(),
+    bins: Type.Array(Type.Any()),
     createdAt: Type.String({ format: 'date-time' }),
     updatedAt: Type.String({ format: 'date-time' })
   },
@@ -48,6 +49,19 @@ export const userRecordsExternalResolver = resolve<UserRecord, HookContext>({
     }
 
     return userRecord.user
+  },
+  bins: async (value, userRecord, context) => {
+    const recordsInBin = await context.app
+      .service('record-bins')
+      .find({ paginate: false, query: { recordId: userRecord.recordId } })
+
+    const binIds = recordsInBin.map((record) => record.binId)
+
+    const bins = await context.app
+      .service('bins')
+      .find({ paginate: false, query: { $select: ['id', 'name'], id: { $in: binIds } } })
+
+    return bins
   }
 })
 
