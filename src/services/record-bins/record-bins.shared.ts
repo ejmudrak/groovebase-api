@@ -2,14 +2,14 @@
 import type { Params } from '@feathersjs/feathers'
 import type { ClientApplication } from '../../client'
 import type {
-  RecordBins,
+  RecordBin,
   RecordBinsData,
   RecordBinsPatch,
   RecordBinsQuery,
   RecordBinsService
 } from './record-bins.class'
 
-export type { RecordBins, RecordBinsData, RecordBinsPatch, RecordBinsQuery }
+export type { RecordBin, RecordBinsData, RecordBinsPatch, RecordBinsQuery }
 
 export type RecordBinsClientService = Pick<
   RecordBinsService<Params<RecordBinsQuery>>,

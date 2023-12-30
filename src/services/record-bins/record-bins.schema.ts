@@ -15,13 +15,13 @@ export const recordBinsSchema = Type.Object(
     createdAt: Type.String({ format: 'date-time' }),
     updatedAt: Type.String({ format: 'date-time' })
   },
-  { $id: 'RecordBins', additionalProperties: false }
+  { $id: 'RecordBin', additionalProperties: false }
 )
-export type RecordBins = Static<typeof recordBinsSchema>
+export type RecordBin = Static<typeof recordBinsSchema>
 export const recordBinsValidator = getValidator(recordBinsSchema, dataValidator)
-export const recordBinsResolver = resolve<RecordBins, HookContext>({})
+export const recordBinsResolver = resolve<RecordBin, HookContext>({})
 
-export const recordBinsExternalResolver = resolve<RecordBins, HookContext>({})
+export const recordBinsExternalResolver = resolve<RecordBin, HookContext>({})
 
 // Schema for creating new entries
 export const recordBinsDataSchema = Type.Pick(recordBinsSchema, ['recordId', 'binId'], {
@@ -29,7 +29,7 @@ export const recordBinsDataSchema = Type.Pick(recordBinsSchema, ['recordId', 'bi
 })
 export type RecordBinsData = Static<typeof recordBinsDataSchema>
 export const recordBinsDataValidator = getValidator(recordBinsDataSchema, dataValidator)
-export const recordBinsDataResolver = resolve<RecordBins, HookContext>({})
+export const recordBinsDataResolver = resolve<RecordBin, HookContext>({})
 
 // Schema for updating existing entries
 export const recordBinsPatchSchema = Type.Partial(recordBinsSchema, {
@@ -37,7 +37,7 @@ export const recordBinsPatchSchema = Type.Partial(recordBinsSchema, {
 })
 export type RecordBinsPatch = Static<typeof recordBinsPatchSchema>
 export const recordBinsPatchValidator = getValidator(recordBinsPatchSchema, dataValidator)
-export const recordBinsPatchResolver = resolve<RecordBins, HookContext>({})
+export const recordBinsPatchResolver = resolve<RecordBin, HookContext>({})
 
 // Schema for allowed query properties
 export const recordBinsQueryProperties = Type.Pick(recordBinsSchema, ['id', 'recordId', 'binId'])

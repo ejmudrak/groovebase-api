@@ -17,6 +17,7 @@ import {
 import type { Application } from '../../declarations'
 import { UserService, getOptions } from './users.class'
 import { userPath, userMethods } from './users.shared'
+import { addDefaultBins } from './hooks/add-default-bins'
 
 export * from './users.class'
 export * from './users.schema'
@@ -50,7 +51,8 @@ export const user = (app: Application) => {
       remove: []
     },
     after: {
-      all: []
+      all: [],
+      create: [addDefaultBins]
     },
     error: {
       all: []

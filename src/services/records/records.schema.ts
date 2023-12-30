@@ -77,7 +77,8 @@ export const recordsQueryProperties = Type.Intersect([
   Type.Pick(recordsSchema, ['id', 'name', 'year', 'discogsMasterId', 'createdAt', 'updatedAt']),
   Type.Object({
     username: Type.String(),
-    userId: Type.Integer()
+    userId: Type.Integer(),
+    binId: Type.Integer()
   })
 ])
 export const recordsQuerySchema = Type.Intersect(

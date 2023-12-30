@@ -28,7 +28,7 @@ export type { Artists, ArtistsData, ArtistsQuery, ArtistsPatch } from './service
 
 import { recordBinsClient } from './services/record-bins/record-bins.shared'
 export type {
-  RecordBins,
+  RecordBin,
   RecordBinsData,
   RecordBinsQuery,
   RecordBinsPatch

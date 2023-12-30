@@ -24,6 +24,7 @@ import { scoopDataForAfter } from './hooks/scoop-data-for-after'
 import { filterRecordsByUserId } from './hooks/filter-records-by-user-id'
 import { addGenres } from './hooks/add-genres'
 import { ignoreExisting } from './hooks/ignore-existing'
+import { filterRecordsByBinId } from './hooks/filter-records-by-bin-id'
 
 export * from './records.class'
 export * from './records.schema'
@@ -48,7 +49,7 @@ export const records = (app: Application) => {
     },
     before: {
       all: [schemaHooks.validateQuery(recordsQueryValidator), schemaHooks.resolveQuery(recordsQueryResolver)],
-      find: [searchDiscogs, getDiscogsCollection, filterRecordsByUserId],
+      find: [searchDiscogs, getDiscogsCollection, filterRecordsByUserId, filterRecordsByBinId],
       get: [],
       create: [
         scoopDataForAfter,

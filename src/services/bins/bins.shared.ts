@@ -1,9 +1,9 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/service.shared.html
 import type { Params } from '@feathersjs/feathers'
 import type { ClientApplication } from '../../client'
-import type { Bins, BinsData, BinsPatch, BinsQuery, BinsService } from './bins.class'
+import type { Bin, BinsData, BinsPatch, BinsQuery, BinsService } from './bins.class'
 
-export type { Bins, BinsData, BinsPatch, BinsQuery }
+export type { Bin, BinsData, BinsPatch, BinsQuery }
 
 export type BinsClientService = Pick<BinsService<Params<BinsQuery>>, (typeof binsMethods)[number]>
 

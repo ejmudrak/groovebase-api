@@ -4,15 +4,15 @@ import { KnexService } from '@feathersjs/knex'
 import type { KnexAdapterParams, KnexAdapterOptions } from '@feathersjs/knex'
 
 import type { Application } from '../../declarations'
-import type { Bins, BinsData, BinsPatch, BinsQuery } from './bins.schema'
+import type { Bin, BinsData, BinsPatch, BinsQuery } from './bins.schema'
 
-export type { Bins, BinsData, BinsPatch, BinsQuery }
+export type { Bin, BinsData, BinsPatch, BinsQuery }
 
 export interface BinsParams extends KnexAdapterParams<BinsQuery> {}
 
 // By default calls the standard Knex adapter service methods but can be customized with your own functionality.
 export class BinsService<ServiceParams extends Params = BinsParams> extends KnexService<
-  Bins,
+  Bin,
   BinsData,
   BinsParams,
   BinsPatch

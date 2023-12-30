@@ -21,9 +21,7 @@ export const filterRecordsByUserId = async (context: HookContext) => {
       }
     })
 
-    if (userRecords?.length > 0) {
-      context.params.query.id = { $in: userRecords.map((rc: UserRecord) => rc.recordId) }
-    }
+    context.params.query.id = { $in: userRecords.map((rc: UserRecord) => rc.recordId) }
 
     delete context.params.query.userId
   }

@@ -5,6 +5,7 @@ import type { Static } from '@feathersjs/typebox'
 
 import type { HookContext } from '../../declarations'
 import { dataValidator, queryValidator } from '../../validators'
+import { recordsSchema } from '../records/records.schema'
 
 // Main data model schema
 export const binsSchema = Type.Object(
@@ -15,16 +16,37 @@ export const binsSchema = Type.Object(
     featuredRecordId: Type.Integer(),
     userId: Type.Integer(),
     isDefault: Type.Boolean(),
+    numRecords: Type.Integer(),
+    recentlyAddedRecords: Type.Array(Type.Object({})),
+    featuredRecord: Type.Object({}),
     createdAt: Type.String({ format: 'date-time' }),
     updatedAt: Type.String({ format: 'date-time' })
   },
   { $id: 'Bins', additionalProperties: false }
 )
-export type Bins = Static<typeof binsSchema>
+export type Bin = Static<typeof binsSchema>
 export const binsValidator = getValidator(binsSchema, dataValidator)
-export const binsResolver = resolve<Bins, HookContext>({})
+export const binsResolver = resolve<Bin, HookContext>({})
 
-export const binsExternalResolver = resolve<Bins, HookContext>({})
+export const binsExternalResolver = resolve<Bin, HookContext>({
+  numRecords: async (_, bin, context) => {
+    const recordsInBin = await context.app.service('record-bins').find({ query: { $limit: 1 } })
+
+    return recordsInBin.total
+  },
+  recentlyAddedRecords: async (_, bin, context) => {
+    const recordsInBin = await context.app
+      .service('records')
+      .find({ query: { binId: bin.id, $limit: 4, $sort: { createdAt: -1 } }, paginate: false })
+
+    return recordsInBin
+  },
+  featuredRecord: async (_, bin, context) => {
+    if (bin.featuredRecordId) {
+      return await context.app.service('records').get(bin.featuredRecordId)
+    }
+  }
+})
 
 // Schema for creating new entries
 export const binsDataSchema = Type.Pick(binsSchema, ['name', 'featuredRecordId'], {
@@ -32,7 +54,7 @@ export const binsDataSchema = Type.Pick(binsSchema, ['name', 'featuredRecordId']
 })
 export type BinsData = Static<typeof binsDataSchema>
 export const binsDataValidator = getValidator(binsDataSchema, dataValidator)
-export const binsDataResolver = resolve<Bins, HookContext>({})
+export const binsDataResolver = resolve<Bin, HookContext>({})
 
 // Schema for updating existing entries
 export const binsPatchSchema = Type.Partial(binsSchema, {
@@ -40,7 +62,7 @@ export const binsPatchSchema = Type.Partial(binsSchema, {
 })
 export type BinsPatch = Static<typeof binsPatchSchema>
 export const binsPatchValidator = getValidator(binsPatchSchema, dataValidator)
-export const binsPatchResolver = resolve<Bins, HookContext>({})
+export const binsPatchResolver = resolve<Bin, HookContext>({})
 
 // Schema for allowed query properties
 export const binsQueryProperties = Type.Pick(binsSchema, [
