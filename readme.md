@@ -1,6 +1,8 @@
 # groovebase-api
 
-> groovebase music app API
+> groovebase music app API, a vinyl collection manager and "Goodreads for music"
+
+![Image](https://cdn.dribbble.com/userupload/10358313/file/original-ba4cd54a297771a8b350f165c791ebe7.png?resize=1024x687)
 
 ## About
 
