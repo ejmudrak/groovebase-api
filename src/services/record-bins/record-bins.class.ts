@@ -23,6 +23,6 @@ export const getOptions = (app: Application): KnexAdapterOptions => {
     paginate: app.get('paginate'),
     Model: app.get('postgresqlClient'),
     name: 'record_bins',
-    multi: ['create']
+    multi: ['create', 'remove']
   }
 }

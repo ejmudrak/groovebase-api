@@ -17,6 +17,8 @@ import {
 import type { Application } from '../../declarations'
 import { RecordBinsService, getOptions } from './record-bins.class'
 import { recordBinsPath, recordBinsMethods } from './record-bins.shared'
+import removeExistingBins from './hooks/remove-existing-bins'
+import addUserId from './hooks/add-user-id'
 
 export * from './record-bins.class'
 export * from './record-bins.schema'
@@ -48,6 +50,8 @@ export const recordBins = (app: Application) => {
       get: [],
       create: [
         schemaHooks.validateData(recordBinsDataValidator),
+        removeExistingBins(),
+        addUserId(),
         schemaHooks.resolveData(recordBinsDataResolver)
       ],
       patch: [

@@ -12,6 +12,7 @@ export const recordBinsSchema = Type.Object(
     id: Type.Number(),
     recordId: Type.Integer(),
     binId: Type.Integer(),
+    userId: Type.Integer(),
     createdAt: Type.String({ format: 'date-time' }),
     updatedAt: Type.String({ format: 'date-time' })
   },
@@ -40,7 +41,7 @@ export const recordBinsPatchValidator = getValidator(recordBinsPatchSchema, data
 export const recordBinsPatchResolver = resolve<RecordBin, HookContext>({})
 
 // Schema for allowed query properties
-export const recordBinsQueryProperties = Type.Pick(recordBinsSchema, ['id', 'recordId', 'binId'])
+export const recordBinsQueryProperties = Type.Pick(recordBinsSchema, ['id', 'recordId', 'binId', 'userId'])
 export const recordBinsQuerySchema = Type.Intersect(
   [
     querySyntax(recordBinsQueryProperties),
