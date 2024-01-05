@@ -6,6 +6,8 @@
 
 This project uses [Feathers](http://feathersjs.com). An open source framework for building APIs and real-time applications.
 
+![Image](https://cdn.dribbble.com/userupload/10358313/file/original-ba4cd54a297771a8b350f165c791ebe7.png?resize=1024x687)
+
 ## Getting Started
 
 1. Make sure you have [NodeJS](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed.
