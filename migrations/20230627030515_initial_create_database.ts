@@ -26,10 +26,10 @@ export async function up(knex: Knex): Promise<void> {
     table.increments('id')
 
     table.integer('recordId')
-    table.foreign('recordId').references('id').inTable('records')
+    table.foreign('recordId').references('id').inTable('records').onUpdate('CASCADE').onDelete('CASCADE')
 
     table.integer('genreId')
-    table.foreign('genreId').references('id').inTable('genres')
+    table.foreign('genreId').references('id').inTable('genres').onUpdate('CASCADE').onDelete('CASCADE')
 
     table.unique(['recordId', 'genreId'])
 
@@ -44,7 +44,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string('position')
 
     table.integer('recordId')
-    table.foreign('recordId').references('id').inTable('records')
+    table.foreign('recordId').references('id').inTable('records').onUpdate('CASCADE').onDelete('CASCADE')
 
     table.unique(['position', 'recordId'])
 
@@ -56,7 +56,7 @@ export async function up(knex: Knex): Promise<void> {
     table.increments('id')
 
     table.integer('trackId')
-    table.foreign('trackId').references('id').inTable('tracks')
+    table.foreign('trackId').references('id').inTable('tracks').onUpdate('CASCADE').onDelete('CASCADE')
 
     table.string('artist')
 
@@ -75,7 +75,7 @@ export async function up(knex: Knex): Promise<void> {
     table.foreign('featuredRecordId').references('id').inTable('records')
 
     table.integer('userId')
-    table.foreign('userId').references('id').inTable('users')
+    table.foreign('userId').references('id').inTable('users').onUpdate('CASCADE').onDelete('CASCADE')
 
     table.unique(['order', 'userId'])
 
@@ -87,10 +87,10 @@ export async function up(knex: Knex): Promise<void> {
     table.increments('id')
 
     table.integer('recordId')
-    table.foreign('recordId').references('id').inTable('records')
+    table.foreign('recordId').references('id').inTable('records').onUpdate('CASCADE').onDelete('CASCADE')
 
     table.integer('binId')
-    table.foreign('binId').references('id').inTable('bins')
+    table.foreign('binId').references('id').inTable('bins').onUpdate('CASCADE').onDelete('CASCADE')
 
     table.unique(['recordId', 'binId'])
 
@@ -110,10 +110,10 @@ export async function up(knex: Knex): Promise<void> {
     table.increments('id')
 
     table.integer('recordId')
-    table.foreign('recordId').references('id').inTable('records')
+    table.foreign('recordId').references('id').inTable('records').onUpdate('CASCADE').onDelete('CASCADE')
 
     table.integer('userId')
-    table.foreign('userId').references('id').inTable('users')
+    table.foreign('userId').references('id').inTable('users').onUpdate('CASCADE').onDelete('CASCADE')
 
     table.unique(['recordId', 'userId'])
 
@@ -161,10 +161,10 @@ export async function up(knex: Knex): Promise<void> {
     table.foreign('activityVerbId').references('id').inTable('activity_verbs')
 
     table.integer('recordId')
-    table.foreign('recordId').references('id').inTable('records')
+    table.foreign('recordId').references('id').inTable('records').onUpdate('CASCADE').onDelete('CASCADE')
 
     table.integer('userId')
-    table.foreign('userId').references('id').inTable('users')
+    table.foreign('userId').references('id').inTable('users').onUpdate('CASCADE').onDelete('CASCADE')
 
     table.integer('binId').nullable()
     table.foreign('binId').references('id').inTable('bins')
