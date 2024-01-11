@@ -51,7 +51,7 @@ export const binsExternalResolver = resolve<Bin, HookContext>({
 })
 
 // Schema for creating new entries
-export const binsDataSchema = Type.Pick(binsSchema, ['name', 'featuredRecordId'], {
+export const binsDataSchema = Type.Pick(binsSchema, ['name', 'userId'], {
   $id: 'BinsData'
 })
 export type BinsData = Static<typeof binsDataSchema>
