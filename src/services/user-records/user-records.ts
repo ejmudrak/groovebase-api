@@ -17,6 +17,7 @@ import {
 import type { Application } from '../../declarations'
 import { UserRecordsService, getOptions } from './user-records.class'
 import { userRecordsPath, userRecordsMethods } from './user-records.shared'
+import removeRecordBins from './hooks/remove-record-bins'
 
 export * from './user-records.class'
 export * from './user-records.schema'
@@ -40,19 +41,25 @@ export const userRecords = (app: Application) => {
       ]
     },
     before: {
-      all: [schemaHooks.validateQuery(userRecordsQueryValidator), schemaHooks.resolveQuery(userRecordsQueryResolver)],
+      all: [
+        schemaHooks.validateQuery(userRecordsQueryValidator),
+        schemaHooks.resolveQuery(userRecordsQueryResolver)
+      ],
       find: [],
       get: [],
       create: [
         schemaHooks.validateData(userRecordsDataValidator),
         schemaHooks.resolveData(userRecordsDataResolver)
       ],
-      patch: [schemaHooks.validateData(userRecordsPatchValidator), schemaHooks.resolveData(userRecordsPatchResolver)],
+      patch: [
+        schemaHooks.validateData(userRecordsPatchValidator),
+        schemaHooks.resolveData(userRecordsPatchResolver)
+      ],
       remove: []
     },
     after: {
       all: [],
-      create: []
+      remove: [removeRecordBins()]
     },
     error: {
       all: []
