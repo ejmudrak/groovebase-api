@@ -8,6 +8,8 @@
 
 This project uses [Feathers](http://feathersjs.com). An open source framework for building APIs and real-time applications.
 
+Check out the React Native frontend [here](https://github.com/ejmudrak/groovebase-mobile)
+
 ## Getting Started
 
 1. Make sure you have [NodeJS](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed.
