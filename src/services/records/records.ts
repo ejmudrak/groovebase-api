@@ -25,6 +25,7 @@ import { filterRecordsByUserId } from './hooks/filter-records-by-user-id'
 import { addGenres } from './hooks/add-genres'
 import { ignoreExisting } from './hooks/ignore-existing'
 import { filterRecordsByBinId } from './hooks/filter-records-by-bin-id'
+import { getDiscogsMaster } from './hooks/discogs-master'
 
 export * from './records.class'
 export * from './records.schema'
@@ -49,7 +50,13 @@ export const records = (app: Application) => {
     },
     before: {
       all: [schemaHooks.validateQuery(recordsQueryValidator), schemaHooks.resolveQuery(recordsQueryResolver)],
-      find: [searchDiscogs, getDiscogsCollection, filterRecordsByUserId, filterRecordsByBinId],
+      find: [
+        searchDiscogs,
+        getDiscogsMaster,
+        getDiscogsCollection,
+        filterRecordsByUserId,
+        filterRecordsByBinId
+      ],
       get: [],
       create: [
         scoopDataForAfter,

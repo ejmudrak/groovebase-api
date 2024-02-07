@@ -55,3 +55,22 @@ export type DiscogsSearchResult = {
   title: string
   year: string
 }
+
+export type DiscogsTrack = {
+  duration: string
+  position: string
+  type_: 'track'
+  title: string
+  extraartists: ArtistResult[]
+}
+
+export type DiscogsMasterResult = {
+  id: number
+  styles: string[]
+  genres: string[]
+  videos: any[]
+  title: string
+  year: string
+  artists: ArtistResult[]
+  tracklist: DiscogsTrack[]
+}

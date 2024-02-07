@@ -22,8 +22,10 @@ export const searchDiscogs = async (context: HookContext) => {
     const results: DiscogsSearchResult[] = response.data.results
 
     const data = results.map(
-      ({ title, year, thumb, cover_image: coverImage, master_id: masterId, genre, style }) => {
+      ({ title, year, thumb, cover_image: coverImage, master_id: masterId, genre, style, ...rest }) => {
         const [artist, album] = title.split(' - ')
+
+        console.log('rest: ', rest)
 
         return {
           name: album,
