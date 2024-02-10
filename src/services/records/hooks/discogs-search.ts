@@ -25,8 +25,6 @@ export const searchDiscogs = async (context: HookContext) => {
       ({ title, year, thumb, cover_image: coverImage, master_id: masterId, genre, style, ...rest }) => {
         const [artist, album] = title.split(' - ')
 
-        console.log('rest: ', rest)
-
         return {
           name: album,
           year,

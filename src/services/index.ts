@@ -1,3 +1,5 @@
+import { trackFeaturedArtists } from './track-featured-artists/track-featured-artists'
+import { tracks } from './tracks/tracks'
 import { recordGenre } from './record-genre/record-genre'
 import { genres } from './genres/genres'
 import { recordBins } from './record-bins/record-bins'
@@ -9,6 +11,8 @@ import { userRecords } from './user-records/user-records'
 import type { Application } from '../declarations'
 
 export const services = (app: Application) => {
+  app.configure(trackFeaturedArtists)
+  app.configure(tracks)
   app.configure(recordGenre)
   app.configure(genres)
   app.configure(recordBins)

@@ -56,12 +56,18 @@ export type DiscogsSearchResult = {
   year: string
 }
 
+export type DiscogsTrackExtraArtist = {
+  name: string
+  role: 'Featuring'
+  id: number
+}
+
 export type DiscogsTrack = {
   duration: string
   position: string
   type_: 'track'
   title: string
-  extraartists: ArtistResult[]
+  extraartists?: DiscogsTrackExtraArtist[]
 }
 
 export type DiscogsMasterResult = {

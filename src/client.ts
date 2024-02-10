@@ -4,6 +4,17 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { trackFeaturedArtistsClient } from './services/track-featured-artists/track-featured-artists.shared'
+export type {
+  TrackFeaturedArtists,
+  TrackFeaturedArtistsData,
+  TrackFeaturedArtistsQuery,
+  TrackFeaturedArtistsPatch
+} from './services/track-featured-artists/track-featured-artists.shared'
+
+import { tracksClient } from './services/tracks/tracks.shared'
+export type { Tracks, TracksData, TracksQuery, TracksPatch } from './services/tracks/tracks.shared'
+
 import { recordGenreClient } from './services/record-genre/record-genre.shared'
 export type {
   RecordGenre,
@@ -86,5 +97,7 @@ export const createClient = <Configuration = any>(
   client.configure(genresClient)
   client.configure(recordGenresClient)
   client.configure(recordGenreClient)
+  client.configure(tracksClient)
+  client.configure(trackFeaturedArtistsClient)
   return client
 }

@@ -25,7 +25,8 @@ import { filterRecordsByUserId } from './hooks/filter-records-by-user-id'
 import { addGenres } from './hooks/add-genres'
 import { ignoreExisting } from './hooks/ignore-existing'
 import { filterRecordsByBinId } from './hooks/filter-records-by-bin-id'
-import { getDiscogsMaster } from './hooks/discogs-master'
+import { getDiscogsMaster } from './hooks/discogs-get-master'
+import { addTracks } from './hooks/add-tracks'
 
 export * from './records.class'
 export * from './records.schema'
@@ -70,7 +71,7 @@ export const records = (app: Application) => {
     },
     after: {
       all: [],
-      create: [addGenres]
+      create: [addGenres, addTracks]
     },
     error: {
       all: []

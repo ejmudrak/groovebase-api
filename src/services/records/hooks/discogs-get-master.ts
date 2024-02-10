@@ -1,5 +1,5 @@
-/* discogs-master.ts
-  Fetches record data from Discogs using a master ID, which returns more information than a search
+/* discogs-get-master.ts
+  Fetches record data from Discogs using a master release ID, which returns more info than a search
   Docs: https://www.discogs.com/developers#page:database,header:database-master-release
 */
 
@@ -11,7 +11,7 @@ export const getDiscogsMaster = async (context: HookContext) => {
     params: { query: { discogsMasterId = '' } = {} }
   } = context
 
-  if (discogsMasterId) {
+  if (discogsMasterId.length > 0) {
     const response = await axios({
       method: 'get',
       url: `https://api.discogs.com/masters/${discogsMasterId}`,
@@ -21,10 +21,7 @@ export const getDiscogsMaster = async (context: HookContext) => {
     })
 
     const result: DiscogsMasterResult = response.data
-    console.log('result: ', result)
-
-    const { id, year, title, artists, genres, styles, tracklist } = result
-    console.log('tracklist: ', tracklist)
+    const { id, year, title, artists, genres, styles } = result
 
     const data = [
       {
