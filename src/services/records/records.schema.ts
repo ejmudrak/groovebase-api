@@ -1,10 +1,11 @@
 // // For more information about this file see https://dove.feathersjs.com/guides/cli/service.schemas.html
-import { resolve } from '@feathersjs/schema'
+import { resolve, virtual } from '@feathersjs/schema'
 import { Type, getValidator, querySyntax } from '@feathersjs/typebox'
 import type { Static } from '@feathersjs/typebox'
 
 import type { HookContext } from '../../declarations'
 import { dataValidator, queryValidator } from '../../validators'
+import { tracksSchema } from '../tracks/tracks.schema'
 
 // Main data model schema
 export const recordsSchema = Type.Object(
@@ -17,17 +18,18 @@ export const recordsSchema = Type.Object(
     largeImageUrl: Type.String(),
     discogsMasterId: Type.Number(),
     genres: Type.Array(Type.String()),
+    tracks: Type.Array(Type.Ref(tracksSchema)),
     createdAt: Type.String({ format: 'date-time' }),
     updatedAt: Type.String({ format: 'date-time' })
   },
-  { $id: 'Records', additionalProperties: false }
+  { $id: 'Record', additionalProperties: false }
 )
 export type Record = Static<typeof recordsSchema>
 export const recordsValidator = getValidator(recordsSchema, dataValidator)
 export const recordsResolver = resolve<Record, HookContext>({})
 
 export const recordsExternalResolver = resolve<Record, HookContext>({
-  genres: async (value, record, context) => {
+  genres: virtual(async (record, context) => {
     // handles populating genres for records that exist in the db
     if (record.id) {
       const genres = await context.app
@@ -39,7 +41,14 @@ export const recordsExternalResolver = resolve<Record, HookContext>({
 
     // discogs search results will already have genres
     return record.genres || []
-  }
+  }),
+  tracks: virtual(async (record, context) => {
+    if (record.id) {
+      return await context.app
+        .service('tracks')
+        .find({ paginate: false, query: { recordId: record.id, $sort: { position: 1 } } })
+    }
+  })
 })
 
 // Schema for creating new entries

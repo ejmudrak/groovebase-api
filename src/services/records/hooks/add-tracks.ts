@@ -42,16 +42,23 @@ export const addTracks = async (context: HookContext) => {
 
       if (featuredArtists?.length > 0 && createdTrack) {
         featuredArtists.forEach((featuredArtist) => {
-          featuredArtistsPayload.push({
-            artist: featuredArtist.name,
-            trackId: createdTrack.id
-          })
+          // We only want the featured artist(s) for the track, otherwise we'll get mixing/producers/etc
+          if (featuredArtist.role === 'Featuring') {
+            featuredArtistsPayload.push({
+              artist: featuredArtist.name,
+              trackId: createdTrack.id
+            })
+          }
         })
       }
     })
 
     if (featuredArtistsPayload.length) {
-      await app.service('track-featured-artists').create(featuredArtistsPayload)
+      try {
+        await app.service('track-featured-artists').create(featuredArtistsPayload)
+      } catch (e) {
+        console.error('Error adding featured artists:', e)
+      }
     }
   }
 }
