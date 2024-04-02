@@ -18,7 +18,7 @@ export const addDefaultBins = async (context: HookContext) => {
     await app
       .service('bins')
       .createQuery()
-      .insert(defaultBins.map((bin) => ({ ...bin, userId, isDefault: false })))
+      .insert(defaultBins.map(({ id, ...restOfBin }) => ({ ...restOfBin, userId, isDefault: false })))
       .onConflict()
       .ignore()
   }
