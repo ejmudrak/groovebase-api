@@ -7,10 +7,10 @@ import axios from 'axios'
 
 export const searchDiscogs = async (context: HookContext) => {
   const {
-    params: { query: { name = '' } = {} }
+    params: { query: { name = '', userId = '' } = {} }
   } = context
 
-  if (name) {
+  if (name && !userId) {
     const response = await axios({
       method: 'get',
       url: `https://api.discogs.com/database/search?q=${name}&format=album&type=master`,

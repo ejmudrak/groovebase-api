@@ -82,8 +82,9 @@ export const recordsPatchResolver = resolve<Record, HookContext>({
 })
 
 // Schema for allowed query properties
+//TODO: Add ilike to properties: https://feathersjs.com/api/databases/knex#querying
 export const recordsQueryProperties = Type.Intersect([
-  Type.Pick(recordsSchema, ['id', 'name', 'year', 'discogsMasterId', 'createdAt', 'updatedAt']),
+  Type.Pick(recordsSchema, ['id', 'name', 'artist', 'year', 'discogsMasterId', 'createdAt', 'updatedAt']),
   Type.Object({
     username: Type.String(),
     userId: Type.Integer(),
@@ -92,7 +93,14 @@ export const recordsQueryProperties = Type.Intersect([
 ])
 export const recordsQuerySchema = Type.Intersect(
   [
-    querySyntax(recordsQueryProperties),
+    querySyntax(recordsQueryProperties, {
+      name: {
+        $ilike: Type.String()
+      },
+      artist: {
+        $ilike: Type.String()
+      }
+    }),
     // Add additional query properties here
     Type.Object({}, { additionalProperties: false })
   ],
