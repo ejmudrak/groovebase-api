@@ -20,7 +20,7 @@ export const userRecordsSchema = Type.Object(
     color: Type.String(),
     price: Type.Optional(Type.Number()),
     sellerId: Type.Number(),
-    source: Type.String(),
+    source: Type.Optional(Type.String()),
 
     record: Type.Any(),
     user: Type.Any(),
