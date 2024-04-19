@@ -1,5 +1,6 @@
 /* discogs-search.ts
   Fetches record data from Discogs, for the purpose of adding a record to a collection
+  https://www.discogs.com/developers#page:database,header:database-search
 */
 
 import type { DiscogsSearchResult, HookContext } from '../../../declarations'
