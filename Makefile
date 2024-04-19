@@ -16,12 +16,12 @@ endif
 
 NAME := $(subst $(space),_,$(MIGRATE_ARGS))
 
-new_migration: ## runs knex migrations:make command; pass migration name after make command
+new_migration: ## runs knex migrations:make command; pass migration name after make command, no quotes
 	npm run migrate:make $(NAME)
 
-migrate: 
+migrate:
 	DATABASE_URL=${DATABASE_URL} npm run migrate
-	
+
 nuke: # wipes out dev environment
 	make stop
 	make remove_api

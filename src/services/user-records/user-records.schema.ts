@@ -20,6 +20,7 @@ export const userRecordsSchema = Type.Object(
     color: Type.String(),
     price: Type.Optional(Type.Number()),
     sellerId: Type.Number(),
+    source: Type.String(),
 
     record: Type.Any(),
     user: Type.Any(),
@@ -68,7 +69,7 @@ export const userRecordsExternalResolver = resolve<UserRecord, HookContext>({
 // Schema for creating new entries
 export const userRecordsDataSchema = Type.Pick(
   userRecordsSchema,
-  ['recordId', 'userId', 'action', 'notes', 'mediaCondition', 'color', 'price'],
+  ['recordId', 'userId', 'action', 'notes', 'mediaCondition', 'color', 'price', 'source'],
   {
     $id: 'UserRecordsData'
   }
@@ -107,6 +108,7 @@ export const userRecordsQueryProperties = Type.Intersect([
     'sleeveCondition',
     'color',
     'price',
+    'source',
     'sellerId',
     'createdAt',
     'updatedAt'
