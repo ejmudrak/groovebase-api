@@ -12,7 +12,7 @@ export const tracksSchema = Type.Object(
     id: Type.Number(),
     name: Type.String(),
     duration: Type.String(),
-    position: Type.String(),
+    position: Type.Any(),
     recordId: Type.Integer(),
     createdAt: Type.String({ format: 'date-time' }),
     updatedAt: Type.String({ format: 'date-time' })

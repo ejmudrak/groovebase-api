@@ -5,7 +5,7 @@ import type { Static } from '@feathersjs/typebox'
 
 import type { HookContext } from '../../declarations'
 import { dataValidator, queryValidator } from '../../validators'
-import { tracksSchema } from '../tracks/tracks.schema'
+import { Tracks, tracksSchema } from '../tracks/tracks.schema'
 
 // Main data model schema
 export const recordsSchema = Type.Object(
@@ -44,9 +44,36 @@ export const recordsExternalResolver = resolve<Record, HookContext>({
   }),
   tracks: virtual(async (record, context) => {
     if (record.id) {
-      return await context.app
+      const tracks = await context.app
         .service('tracks')
         .find({ paginate: false, query: { recordId: record.id, $sort: { position: 1 } } })
+
+      // cleans up position by formatting as a float if necessary
+      const recordSides = ['A', 'B', 'C', 'D', 'E', 'F', 'G'] as const
+
+      const getFloatPosition = (track: Tracks) => {
+        const hasSides = recordSides.some((side) => track.position?.includes(side))
+
+        return hasSides ? track.position : parseFloat(track.position)
+      }
+
+      const t = tracks
+        .map((track) => ({ ...track, position: getFloatPosition(track) }))
+        .sort((a, b) => {
+          const positionA = a.position
+          const positionB = b.position
+          if (positionA < positionB) {
+            return -1
+          }
+          if (positionA > positionB) {
+            return 1
+          }
+
+          // positions must be equal
+          return 0
+        })
+
+      return t
     }
   })
 })
